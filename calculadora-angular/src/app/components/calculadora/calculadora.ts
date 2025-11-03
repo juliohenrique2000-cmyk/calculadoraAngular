@@ -1,4 +1,4 @@
-import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, HostListener, ViewChild, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
 
 
 @Component({
@@ -7,20 +7,35 @@ import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
   templateUrl: './calculadora.html',
   styleUrls: ['./calculadora.scss']
 })
-export class CalculadoraComponent {
+export class CalculadoraComponent implements AfterViewInit {
   display = '0';
   private expression = '';
   private lastKey = '';
   private operators = ['+', '-', '*', '/', '^', '%'];
   private teleportCount = 0;
+  private buttonSlots: { x: number; y: number }[] = [];
+  chaosMode = false;
+  private lastWasCalculate = false;
 
   @ViewChild('equalsButton', { static: true }) equalsButton!: ElementRef<HTMLButtonElement>;
+  @ViewChildren('button') buttons!: QueryList<ElementRef<HTMLButtonElement>>;
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.initializeButtonSlots();
+      this.resetButtonPositions();
+    }, 0);
+  }
 
   pressKey(key: string) {
     if (key === 'C') return this.clear();
     if (key === '=') return this.calculate();
 
     if (/[0-9.]$/.test(key)) {
+      if (this.lastWasCalculate) {
+        this.expression = '';
+        this.lastWasCalculate = false;
+      }
       const parts = this.expression.split(/[\+\-\*\/\^\%]/);
       const lastPart = parts[parts.length - 1];
       if (key === '.' && lastPart.includes('.')) return;
@@ -39,6 +54,7 @@ export class CalculadoraComponent {
       }
       this.updateDisplay();
       this.lastKey = key;
+      this.lastWasCalculate = false;
       return;
     }
   }
@@ -47,13 +63,18 @@ export class CalculadoraComponent {
     this.display = '0';
     this.expression = '';
     this.lastKey = '';
+    if (this.chaosMode) {
+      this.shuffleButtons();
+    }
   }
 
   calculate() {
-    this.teleportCount++;
-    if (this.teleportCount < 3) {
-      this.teleportButton();
-      return;
+    if (this.chaosMode) {
+      this.teleportCount++;
+      if (this.teleportCount < 3) {
+        this.teleportButton();
+        return;
+      }
     }
 
     if (!this.expression) return;
@@ -78,6 +99,7 @@ export class CalculadoraComponent {
       } else {
         this.display = String(result);
         this.expression = String(result);
+        this.lastWasCalculate = true;
       }
     } catch {
       this.display = 'Erro';
@@ -105,7 +127,7 @@ export class CalculadoraComponent {
       this.expression = this.expression.slice(0, -1);
       this.updateDisplay();
       this.lastKey = this.expression.slice(-1);
-    } else if (k.toLowerCase() === 'c') this.pressKey('C');
+    } else if (k.toLowerCase() === 'c' || k === 'Escape') this.pressKey('C');
   }
 
   private teleportButton() {
@@ -129,5 +151,50 @@ export class CalculadoraComponent {
     button.style.position = '';
     button.style.left = '';
     button.style.top = '';
+  }
+
+  private initializeButtonSlots() {
+    const buttonElements = this.buttons.map(btn => btn.nativeElement);
+    this.buttonSlots = buttonElements.map(button => {
+      const rect = button.getBoundingClientRect();
+      const container = button.parentElement!.getBoundingClientRect();
+      return {
+        x: rect.left - container.left,
+        y: rect.top - container.top
+      };
+    });
+  }
+
+  private resetButtonPositions() {
+    const buttonElements = this.buttons.map(btn => btn.nativeElement);
+    buttonElements.forEach((button, index) => {
+      const slot = this.buttonSlots[index];
+      if (slot) {
+        button.style.position = 'absolute';
+        button.style.left = `${slot.x}px`;
+        button.style.top = `${slot.y}px`;
+        button.style.zIndex = '10';
+      }
+    });
+  }
+
+  toggleChaosMode() {
+    this.chaosMode = !this.chaosMode;
+    if (!this.chaosMode) {
+      this.resetButtonPositions();
+    }
+  }
+
+  private shuffleButtons() {
+    const shuffledSlots = [...this.buttonSlots].sort(() => Math.random() - 0.5);
+    const buttonElements = this.buttons.map(btn => btn.nativeElement);
+
+    buttonElements.forEach((button, index) => {
+      const slot = shuffledSlots[index];
+      button.style.position = 'absolute';
+      button.style.left = `${slot.x}px`;
+      button.style.top = `${slot.y}px`;
+      button.style.zIndex = '10';
+    });
   }
 }

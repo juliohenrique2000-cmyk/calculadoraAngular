@@ -6,3 +6,8 @@
 - [x] Adicionar método teleportButton() no TS
 - [x] Ajustar CSS para position relative no .keys
 - [x] Resetar posição do botão após cálculo
+- [x] Adicionar referência #button a todos os botões no HTML
+- [x] Importar ViewChildren e QueryList no TS
+- [x] Adicionar ViewChildren para todos os botões no TS
+- [x] Modificar método clear() para embaralhar botões
+- [x] Adicionar método shuffleButtons() no TS
