@@ -4,36 +4,35 @@
     </ActionBar>
 
     <GridLayout rows="auto, *" columns="*">
-        <!-- Display do resultado -->
         <Label row="0" col="0" text="{{ displayText }}" class="display" textAlignment="right" />
 
         <!-- Botões da calculadora -->
         <GridLayout row="1" col="0" rows="*, *, *, *, *, *" columns="*, *, *, *">
-            <!-- Linha 1: C, %, ^, √ -->
+
             <Button row="0" col="0" text="C" tap="{{ onClearPress }}" class="button clear" />
             <Button row="0" col="1" text="%" tap="{{ onPercentagePress }}" class="button operator" />
             <Button row="0" col="2" text="^" tap="{{ onPowerPress }}" class="button operator" />
             <Button row="0" col="3" text="√" tap="{{ onSqrtPress }}" class="button operator" />
 
-            <!-- Linha 2: 7, 8, 9, / -->
+
             <Button row="1" col="0" text="7" tap="{{ onNumberPress }}" class="button number" />
             <Button row="1" col="1" text="8" tap="{{ onNumberPress }}" class="button number" />
             <Button row="1" col="2" text="9" tap="{{ onNumberPress }}" class="button number" />
             <Button row="1" col="3" text="/" tap="{{ onOperatorPress }}" class="button operator" />
 
-            <!-- Linha 3: 4, 5, 6, * -->
+
             <Button row="2" col="0" text="4" tap="{{ onNumberPress }}" class="button number" />
             <Button row="2" col="1" text="5" tap="{{ onNumberPress }}" class="button number" />
             <Button row="2" col="2" text="6" tap="{{ onNumberPress }}" class="button number" />
             <Button row="2" col="3" text="*" tap="{{ onOperatorPress }}" class="button operator" />
 
-            <!-- Linha 4: 1, 2, 3, - -->
+
             <Button row="3" col="0" text="1" tap="{{ onNumberPress }}" class="button number" />
             <Button row="3" col="1" text="2" tap="{{ onNumberPress }}" class="button number" />
             <Button row="3" col="2" text="3" tap="{{ onNumberPress }}" class="button number" />
             <Button row="3" col="3" text="-" tap="{{ onOperatorPress }}" class="button operator" />
 
-            <!-- Linha 5: 0, ., =, + -->
+
             <Button row="4" col="0" text="0" tap="{{ onNumberPress }}" class="button number" />
             <Button row="4" col="1" text="." tap="{{ onDotPress }}" class="button number" />
             <Button row="4" col="2" text="=" tap="{{ onEqualPress }}" class="button equals" />

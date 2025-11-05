@@ -2,19 +2,11 @@ import { fromObject } from '@nativescript/core'
 
 export function HomeViewModel() {
   const viewModel = fromObject({
-    // Propriedade para exibir o texto no display da calculadora
     displayText: '0',
 
-    // Valor atual sendo digitado
     currentValue: '',
-
-    // Operador selecionado (+, -, *, /, %, ^, √)
     operator: null,
-
-    // Valor anterior para operações
     previousValue: '',
-
-    // Flag para indicar se é uma nova entrada após operação
     isNewEntry: true,
 
     // Método chamado quando um botão numérico é pressionado
@@ -27,7 +19,6 @@ export function HomeViewModel() {
         this.displayText = number;
         this.isNewEntry = false;
       } else {
-        // Adiciona o dígito ao display
         this.displayText += number;
       }
 
