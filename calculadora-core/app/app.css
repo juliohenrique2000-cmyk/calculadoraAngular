@@ -4,13 +4,19 @@
 /* Place any CSS rules you want to apply on both iOS and Android here.
 This is where the vast majority of your CSS code goes. */
 
+/* Dark theme for the entire app */
+Page {
+    background-color: #121212;
+}
+
 /* Estilos da calculadora */
 .display {
     font-size: 36px;
     font-weight: bold;
     padding: 20px;
-    background-color: #f0f0f0;
-    border: 2px solid #ccc;
+    background-color: #333333;
+    color: #ffffff;
+    border: 2px solid #555555;
     margin: 10px;
     min-height: 60px;
 }
@@ -19,25 +25,25 @@ This is where the vast majority of your CSS code goes. */
     font-size: 24px;
     font-weight: bold;
     margin: 5px;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .button.number {
-    background-color: #e0e0e0;
-    color: #000;
+    background-color: #424242;
+    color: #ffffff;
 }
 
 .button.operator {
-    background-color: #ffa500;
-    color: #fff;
+    background-color: #ff5722;
+    color: #ffffff;
 }
 
 .button.clear {
-    background-color: #ff4444;
-    color: #fff;
+    background-color: #d32f2f;
+    color: #ffffff;
 }
 
 .button.equals {
-    background-color: #4CAF50;
-    color: #fff;
+    background-color: #388e3c;
+    color: #ffffff;
 }
