@@ -1,5 +1,43 @@
-﻿@import '@nativescript/theme/css/core.css';
+﻿﻿@import '@nativescript/theme/css/core.css';
 @import '@nativescript/theme/css/default.css';
 
 /* Place any CSS rules you want to apply on both iOS and Android here.
 This is where the vast majority of your CSS code goes. */
+
+/* Estilos da calculadora */
+.display {
+    font-size: 36px;
+    font-weight: bold;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 2px solid #ccc;
+    margin: 10px;
+    min-height: 60px;
+}
+
+.button {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.button.number {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+.button.operator {
+    background-color: #ffa500;
+    color: #fff;
+}
+
+.button.clear {
+    background-color: #ff4444;
+    color: #fff;
+}
+
+.button.equals {
+    background-color: #4CAF50;
+    color: #fff;
+}
